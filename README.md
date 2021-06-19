@@ -13,7 +13,7 @@ A game based on the DVD Screensaver meme! Take control of the logo and try to ma
 - Add json file of levels with different values for each level
 - Add current level display
 - Add highest level display
-- Add move counter and add functality to it
+- Add move counter and add functionality to it
 - Add index.db storage
 
 ## V2.0 - ALMOST COMPLETE
