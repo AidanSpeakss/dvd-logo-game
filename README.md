@@ -2,7 +2,7 @@
 A game based on the DVD Screensaver meme! Take control of the logo and try to make it hit the corner in as little moves as possible!
 
 # Changelog  
-Last Updated 6/19 @ 1pm
+**Last Updated:** 6/19, 1:13pm CDT
 
 ## V3.0 - Unstable Release
 **To-do:**
