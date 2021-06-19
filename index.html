@@ -24,7 +24,7 @@
             height: 100%;
             display: block;
         }
-        #gameMsg {
+        #moveCounter {
             top: 10px;
             transition: opacity 2s;
             opacity: 100%;
@@ -39,10 +39,26 @@
             position: absolute;
             overflow: hidden;
         }
+        #startBtn {
+            transition: opacity 2s;
+            opacity: 100%;
+            padding: 7px;
+            border-radius: 20px;
+            background-color: #3b3b3b;
+            color: white;
+            position: absolute;
+            top: 50%;
+            text-align: center;
+            display: block;
+            margin: 0;
+            z-index: 20;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
-<p id="gameMsg"></p>
+<p id="moveCounter"></p>
+<p id="startBtn">Start Game</p>
 <canvas id="gameCanvas">
     <script>
         //declare variables
@@ -75,25 +91,27 @@
         yv = Math.floor(Math.random() * 76 + 50) / FPS;
 
         // random ball direction
-        if (Math.floor(Math.random() * 2) === 0) {
+        if (Math.floor(Math.random() * 2) == 0) {
             xv = -xv;
         }
-        if (Math.floor(Math.random() * 2) === 0) {
+        if (Math.floor(Math.random() * 2) == 0) {
             yv = -yv;
         }
 
-        let gameMsg = document.getElementById("gameMsg");
+        let lvlCounterMax;
+        let moveCounter = document.getElementById("moveCounter");
+
         //keyboard controls that change direction of logo
-        let recent = false;
+        let counterValue = 0;
         document.addEventListener('keydown', function(event) {
-            if(recent == false){
+            if(counterValue <= lvlCounterMax){
                 switch(event.code) {
                     case "KeyS":
                     case "ArrowDown":
                         //Make logo change direction to downwards, if the ball is moving upwards
                         if(yv < 0){
-                            recent = true;
-                            setTimeout(function(){ recent = false; }, 1000);
+                            ++counterValue;
+                            moveCounter.innerHTML = counterValue;
                             yv = Math.abs(yv);
                             break;
                         } else {
@@ -103,45 +121,55 @@
                     case "ArrowUp":
                         //Make logo change direction to upwards, if the ball is moving downwards
                         if(yv > 0){
-                            recent = true;
-                            setTimeout(function(){ recent = false; }, 1000);
+                            ++counterValue;
+                            moveCounter.innerHTML = counterValue;
                             yv = -yv;
                             break;
                         } else {
                             break;
                         }
+                        break;
                     case "KeyA":
                     case "ArrowLeft":
                         //Make logo change direction to left, if the ball is moving right
                         if(xv > 0){
-                            recent = true;
-                            setTimeout(function(){ recent = false; }, 1000);
+                            ++counterValue;
+                            moveCounter.innerHTML = counterValue;
                             xv = -xv;
                             break;
                         } else {
                             break;
                         }
+                        break;
                     case "KeyD":
                     case "ArrowRight":
                         //Make logo change direction to right, if the ball is moving left
                         if(xv < 0){
-                            recent = true;
-                            setTimeout(function(){ recent = false; }, 1000);
+                            ++counterValue;
+                            moveCounter.innerHTML = counterValue;
                             xv = Math.abs(xv);
                             break;
                         } else {
                             break;
                         }
+                        break;
                 }
             } else {
-                gameMsg.innerHTML = "You can only move once per a second."
-                gameMsg.style.display = "block";
-                gameMsg.style.opacity = "100%";
-                setTimeout(function(){ gameMsg.style.opacity = "0%"; }, 500)
+                moveCounter.style.opacity = "0%";
+                counterValue = 0;
+                gameOver();
             }
         });
 
-        function drawConfetti() {
+        function gameOver(){
+            clearInterval(updateInterval);
+            context.fillStyle = "black";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            //resets dvdLogo position
+            bx = canvas.width / 2;
+            by = canvas.height/ 2;
+        }
+        function winLevel() {
             if (party) {
                 //create confetti effect using party.js
                 party.confetti(party.Rect.fromScreen(), {
@@ -154,60 +182,60 @@
                         scaleVariation: 0.8
                     }
                 );
+
                 //resets dvdLogo position so you can't spam it
                 bx = canvas.width / 2;
                 by = canvas.height/ 2;
             } else {
-                setTimeout(drawConfetti, 50)
+                setTimeout(winLevel(), 50)
             }
         }
 
         //ensures the new dvd logo color is different then the current one
         function changeImg() {
             let returnSrc = arrImages[(Math.floor(Math.random() * 4 + 1))];
-            if(returnSrc !== img.src){
+            if(returnSrc != img.src){
                 return returnSrc;
             } else {
                 changeImg();
             }
         }
-
-        let xBounds = false;
-        let yBounds = false;
-
         //responsible for: redrawing canvas per frame, ball movement, dvd logo color change, making the ball bounce off walls, and checking for corner hits
         function update() {
             //move the ball
             bx += xv;
             by += yv;
 
+            let xBounds = false;
+            let yBounds = false;
+
             //bounce the ball off each wall
             if (bx - bsWidth / 2 < 0 && xv < 0){
-                yBounds === true && drawConfetti();
+                yBounds === true && winLevel();
                 xBounds = true;
-                setTimeout(function(){ xBounds = false; }, 50)
+                setTimeout(function(){ xBounds = false; }, 10)
                 xv = -xv;
                 img.src = changeImg();
             }
             //checking if ball position is more than the width of the canvas and if velocity is more than 0
             if (bx + bsWidth / 2 > canvas.width && xv > 0){
-                yBounds === true && drawConfetti();
+                yBounds === true && winLevel();
                 xBounds = true;
-                setTimeout(function(){ xBounds = false; }, 50)
+                setTimeout(function(){ xBounds = false; }, 10)
                 xv = -xv;
                 img.src = changeImg();
             }
             if (by - bsHeight / 2 < 0 && yv < 0){
-                xBounds === true && drawConfetti();
+                xBounds === true && winLevel();
                 yBounds = true;
-                setTimeout(function(){ yBounds = false; }, 50)
+                setTimeout(function(){ yBounds = false; }, 10)
                 yv = -yv;
                 img.src = changeImg();
             }
             if (by + bsHeight / 2 > canvas.height && yv > 0){
-                xBounds === true && drawConfetti();
+                xBounds === true && winLevel();
                 yBounds = true;
-                setTimeout(function(){ yBounds = false; }, 50)
+                setTimeout(function(){ yBounds = false; }, 10)
                 yv = -yv;
                 img.src = changeImg();
             }
@@ -217,10 +245,14 @@
             context.fillRect(0, 0, canvas.width, canvas.height);
             context.drawImage(img, bx - bsWidth / 2, by - bsHeight / 2);
         }
-
+        let updateInterval;
+        document.getElementById("startBtn").addEventListener("click", startGame())
         //Calls the update function every 1/30th of a second
-        setInterval(update, 1000 / FPS);
-
+        function startGame() {
+            moveCounter.style.display = "block";
+            lvlCounterMax = 10;
+            updateInterval = setInterval(update, 1000 / FPS);
+        }
     </script>
     <h1>Your browser is out of date.</h1>
     <p><a href="https://browser-update.org/update-browser.html?1">Update</a> your browser to view this site.</p>
