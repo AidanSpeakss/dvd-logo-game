@@ -1,5 +1,7 @@
 # DVD Logo Mini-Game
 A game based on the DVD Screensaver meme! Take control of the logo and try to make it hit the corner in as little moves as possible!
+https://aidanspeakss.github.io/dvd-logo-game/ 
+Published game is based on V2.0
 
 # Changelog  
 **Last Updated:** 6/19, 1:13pm CDT
