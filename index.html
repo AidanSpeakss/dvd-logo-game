@@ -230,7 +230,7 @@
         setInterval(update, 1000 / FPS);
 
         var md = new MobileDetect(window.navigator.userAgent);
-        if(md.mobileGrade()){
+        if(md.mobileGrade() === 'A'){
             document.body.innerHTML = md.mobile();
         }
     </script>
