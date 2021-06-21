@@ -19,7 +19,9 @@ Published game is based on V2.0
 - Add index.db storage
 
 ## V2.0 - ALMOST COMPLETE
-**To-do:** Detect if canvas-size is less than three times the size of the dvdlogo, to prevent people from resizing the browser super small to cheat.
+**To-do:**  
+- Detect if canvas-size is less than three times the size of the dvdlogo, to prevent people from resizing the browser super small to cheat.
+- Add start game button, that detects what kind of input the user used (touch or click) and then adds a dpad on screen if they used touch, for mobile controls.
 
 **Done:**
 - Change logo color
