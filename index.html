@@ -177,6 +177,13 @@
 
         //responsible for: redrawing canvas per frame, ball movement, dvd logo color change, making the ball bounce off walls, and checking for corner hits
         function update() {
+            if(img.width > canvas.width / 3 || img.height > canvas.height / 3){
+                gameMsg.innerHTML = "Your game area is too small, pausing game."
+                gameMsg.style.display = "block";
+                gameMsg.style.opacity = "100%";
+                setTimeout(function(){ gameMsg.style.opacity = "0%"; }, 5000);
+                return;
+            }
             //move the ball
             bx += xv;
             by += yv;
@@ -220,7 +227,18 @@
 
         //Calls the update function every 1/30th of a second
         setInterval(update, 1000 / FPS);
-
+        var hasTouch = (function(){
+            if (document && document.createEvent) {
+                try {
+                    document.createEvent('GestureEvent');
+                    document.createEvent('TouchEvent');
+                    return true;
+                } catch (e) {
+                    return false;
+                }
+            }
+        })();
+        console.log(hasTouch)
     </script>
     <h1>Your browser is out of date.</h1>
     <p><a href="https://browser-update.org/update-browser.html?1">Update</a> your browser to view this site.</p>
