@@ -126,19 +126,21 @@ window.onload = () => {
 
     //responsible for: redrawing canvas per frame, ball movement, dvd logo color change, making the ball bounce off walls, and checking for corner hits
     function update() {
-        if (img.width > canvas.width / 3 || img.height > canvas.height / 3) {
-            if(!md.mobile()){
-                gameMsg.innerHTML = "Your game area is too small, pausing game."
-                gameMsg.style.display = "block";
-                gameMsg.style.opacity = "100%";
-                setTimeout(function () {
-                    gameMsg.style.opacity = "0%";
-                }, 5000);
-                return;
-            } else {
-                //add mobile cheat detection here
-            }
-        }
+        //old cheat detection
+        // if (img.width > canvas.width / 3 || img.height > canvas.height / 3) {
+        //     if(!md.mobile()){
+        //         gameMsg.innerHTML = "Your game area is too small, pausing game."
+        //         gameMsg.style.display = "block";
+        //         gameMsg.style.opacity = "100%";
+        //         setTimeout(function () {
+        //             gameMsg.style.opacity = "0%";
+        //         }, 5000);
+        //         return;
+        //     } else {
+        //         //add mobile cheat detection here
+        //     }
+        // }
+
         //move the ball
         bx += xv;
         by += yv;
@@ -185,7 +187,13 @@ window.onload = () => {
         //draw background and dvd logo
         context.fillStyle = "black";
         context.fillRect(0, 0, canvas.width, canvas.height);
-        context.drawImage(img, bx - bsWidth / 2, by - bsHeight / 2);
+        let ratio = img.width / canvas.width;
+        if(ratio <= 0.33){
+            context.drawImage(img, bx - bsWidth / 2, by - bsHeight / 2);
+        } else {
+            console.log(ratio)
+            context.drawImage(img, bx - bsWidth / 2, by - bsHeight / 2, img.width * ratio, img.height * ratio);
+        }
     }
 
     //Calls the update function every 1/30th of a second
