@@ -126,20 +126,6 @@ window.onload = () => {
 
     //responsible for: redrawing canvas per frame, ball movement, dvd logo color change, making the ball bounce off walls, and checking for corner hits
     function update() {
-        //old cheat detection
-        // if (img.width > canvas.width / 3 || img.height > canvas.height / 3) {
-        //     if(!md.mobile()){
-        //         gameMsg.innerHTML = "Your game area is too small, pausing game."
-        //         gameMsg.style.display = "block";
-        //         gameMsg.style.opacity = "100%";
-        //         setTimeout(function () {
-        //             gameMsg.style.opacity = "0%";
-        //         }, 5000);
-        //         return;
-        //     } else {
-        //         //add mobile cheat detection here
-        //     }
-        // }
 
         //move the ball
         bx += xv;
@@ -188,11 +174,14 @@ window.onload = () => {
         context.fillStyle = "black";
         context.fillRect(0, 0, canvas.width, canvas.height);
         let ratio = img.width / canvas.width;
-        if(ratio <= 0.33){
-            context.drawImage(img, bx - bsWidth / 2, by - bsHeight / 2);
+        let ratioY = img.height / canvas.height;
+        if (ratioY >= 0.33) {
+            context.drawImage(img, bx - bsWidth / 2, by - bsHeight / 2, img.width - (img.width * ratioY), img.height - (img.height * ratioY));
+        } else if(ratio >= 0.33) {
+            context.drawImage(img, bx - bsWidth / 2, by - bsHeight / 2, img.width - (img.width * ratio), img.height - (img.height * ratio));
+
         } else {
-            console.log(ratio)
-            context.drawImage(img, bx - bsWidth / 2, by - bsHeight / 2, img.width * ratio, img.height * ratio);
+            context.drawImage(img, bx - bsWidth / 2, by - bsHeight / 2);
         }
     }
 
