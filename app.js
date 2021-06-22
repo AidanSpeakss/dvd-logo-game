@@ -6,6 +6,7 @@ window.onload = () => {
 
     let md = new MobileDetect(window.navigator.userAgent);
     if (md.mobile()) {
+
         document.getElementsByClassName("o-pad")[0].style.display = "inline-block";
     }
 
@@ -125,7 +126,7 @@ window.onload = () => {
 
     //responsible for: redrawing canvas per frame, ball movement, dvd logo color change, making the ball bounce off walls, and checking for corner hits
     function update() {
-        if (img.width > canvas.width / 3 || img.height > canvas.height / 3) {
+        if ((img.width > canvas.width / 3 || img.height > canvas.height / 3) && !md.mobile()) {
             gameMsg.innerHTML = "Your game area is too small, pausing game."
             gameMsg.style.display = "block";
             gameMsg.style.opacity = "100%";
