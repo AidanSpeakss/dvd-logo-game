@@ -8,23 +8,171 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <script src="https://cdn.jsdelivr.net/npm/mobile-detect@1.4.5/mobile-detect.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link type="text/css" href="styles.css">
     <style>
-        html {
-            font-family: 'Montserrat', sans-serif;
-            height: 100%;
+        .o-pad {
+            z-index: 2;
+            left: 0;
+            bottom: 0;
+            position: absolute;
+            background: #ddd;
+            width: 200px;
+            margin: 10px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: none;
         }
-        body {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            margin: 0;
-            height: 100%;
+        .o-pad:after {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            width: 20%;
+            height: 20%;
+            top: 50%;
+            left: 50%;
+            background: #ddd;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            transition: all 0.25s;
+            cursor: pointer;
         }
-        canvas {
-            width: 100%;
-            height: 100%;
+        .o-pad:hover:after {
+            width: 30%;
+            height: 30%;
+        }
+        .o-pad a {
             display: block;
+            position: absolute;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+            width: 50%;
+            height: 50%;
+            text-align: center;
+            transform: rotate(45deg);
+            border: 1px solid rgba(0, 0, 0, 0.2);
         }
+        .o-pad a:before {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            top: 50%;
+            left: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.25s;
+            cursor: pointer;
+            display: none;
+        }
+        .o-pad a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-radius: 5px;
+            border-style: solid;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            transition: all 0.25s;
+        }
+        .o-pad a.up {
+            bottom: 50%;
+            left: 50%;
+            transform: translate(-50%, -20%) rotate(45deg);
+            border-top-left-radius: 50%;
+            z-index: 1;
+        }
+        .o-pad a.up:hover {
+            background: linear-gradient(315deg, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0.4) 100%);
+        }
+        .o-pad a.up:before {
+            left: 57%;
+            top: 57%;
+        }
+        .o-pad a.up:after {
+            left: 53%;
+            top: 53%;
+            border-width: 0 13px 19px 13px;
+            border-color: transparent transparent #aaa transparent;
+        }
+        .o-pad a.up:active:after {
+            border-bottom-color: #333;
+        }
+        .o-pad a.down {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 20%) rotate(45deg);
+            border-bottom-right-radius: 50%;
+            z-index: 1;
+        }
+        .o-pad a.down:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0.4) 100%);
+        }
+        .o-pad a.down:before {
+            left: 43%;
+            top: 43%;
+        }
+        .o-pad a.down:after {
+            left: 47%;
+            top: 47%;
+            border-width: 19px 13px 0px 13px;
+            border-color: #aaa transparent transparent transparent;
+        }
+        .o-pad a.down:active:after {
+            border-top-color: #333;
+        }
+        .o-pad a.left {
+            top: 50%;
+            right: 50%;
+            transform: translate(-20%, -50%) rotate(45deg);
+            border-bottom-left-radius: 50%;
+            border: none;
+        }
+        .o-pad a.left:hover {
+            background: linear-gradient(225deg, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0.4) 100%);
+        }
+        .o-pad a.left:before {
+            left: 57%;
+            top: 43%;
+        }
+        .o-pad a.left:after {
+            left: 53%;
+            top: 47%;
+            border-width: 13px 19px 13px 0;
+            border-color: transparent #aaa transparent transparent;
+        }
+        .o-pad a.left:active:after {
+            border-right-color: #333;
+        }
+        .o-pad a.right {
+            top: 50%;
+            left: 50%;
+            transform: translate(20%, -50%) rotate(45deg);
+            border-top-right-radius: 50%;
+            border: none;
+        }
+        .o-pad a.right:hover {
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0) 15%, rgba(255, 255, 255, 0.4) 100%);
+        }
+        .o-pad a.right:before {
+            left: 43%;
+            top: 57%;
+        }
+        .o-pad a.right:after {
+            left: 47%;
+            top: 53%;
+            border-width: 13px 0 13px 19px;
+            border-color: transparent transparent transparent #aaa;
+        }
+        .o-pad a.right:active:after {
+            border-left-color: #333;
+        }
+        .o-pad a:hover:after {
+            left: 50%;
+            top: 50%;
+        }
+
         #gameMsg {
             top: 10px;
             transition: opacity 2s;
@@ -40,209 +188,50 @@
             position: absolute;
             overflow: hidden;
         }
+        html {
+            font-family: 'Montserrat', sans-serif;
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: 0;
+            height: 100%;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
     </style>
 </head>
 <body>
 <p id="gameMsg"></p>
+<nav class="o-pad">
+    <a class="up" href="#"></a>
+    <a class="right" href="#"></a>
+    <a class="down" href="#"></a>
+    <a class="left" href="#"></a>
+</nav>
 <canvas id="gameCanvas">
-    <script>
-        //declare variables
-        const FPS = 60;
-        const canvas = document.getElementById("gameCanvas");
-        const context = canvas.getContext("2d");
-
-        //array of dvd logo colors
-        let img = new Image();
-        let arrImages = ["dvdLogo1.png", "dvdLogo2.png", "dvdLogo3.png", "dvdLogo4.png", "dvdLogo5.png"]
-        img.src = arrImages[(Math.floor(Math.random() * 4 + 1))];
-
-        //ball size
-        let bsWidth = 300;
-        let bsHeight = 157;
-
-        //ball position x, y
-        let bx, by;
-
-        //ball velocity x, y (in pixels per a second, aka how many pixels it moves per frame)
-        let xv, yv;
-
-        // sets ball position to middle of canvas
-        //using the documents width/height because canvas height and width is inaccurate when this is set
-        bx = document.body.clientWidth / 2;
-        by = document.body.clientHeight / 2;
-
-        // random ball starting speed (between 50 and 100 pixels per a second)
-        xv = Math.floor(Math.random() * 76 + 50) / FPS;
-        yv = Math.floor(Math.random() * 76 + 50) / FPS;
-
-        // random ball direction
-        if (Math.floor(Math.random() * 2) === 0) {
-            xv = -xv;
-        }
-        if (Math.floor(Math.random() * 2) === 0) {
-            yv = -yv;
-        }
-
-        let gameMsg = document.getElementById("gameMsg");
-        //keyboard controls that change direction of logo
-        let recent = false;
-        document.addEventListener('keydown', function(event) {
-            if(recent == false){
-                switch(event.code) {
-                    case "KeyS":
-                    case "ArrowDown":
-                        //Make logo change direction to downwards, if the ball is moving upwards
-                        if(yv < 0){
-                            recent = true;
-                            setTimeout(function(){ recent = false; }, 1000);
-                            yv = Math.abs(yv);
-                            break;
-                        } else {
-                            break;
-                        }
-                    case "KeyW":
-                    case "ArrowUp":
-                        //Make logo change direction to upwards, if the ball is moving downwards
-                        if(yv > 0){
-                            recent = true;
-                            setTimeout(function(){ recent = false; }, 1000);
-                            yv = -yv;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case "KeyA":
-                    case "ArrowLeft":
-                        //Make logo change direction to left, if the ball is moving right
-                        if(xv > 0){
-                            recent = true;
-                            setTimeout(function(){ recent = false; }, 1000);
-                            xv = -xv;
-                            break;
-                        } else {
-                            break;
-                        }
-                    case "KeyD":
-                    case "ArrowRight":
-                        //Make logo change direction to right, if the ball is moving left
-                        if(xv < 0){
-                            recent = true;
-                            setTimeout(function(){ recent = false; }, 1000);
-                            xv = Math.abs(xv);
-                            break;
-                        } else {
-                            break;
-                        }
-                }
-            } else {
-                gameMsg.innerHTML = "You can only move once per a second."
-                gameMsg.style.display = "block";
-                gameMsg.style.opacity = "100%";
-                setTimeout(function(){ gameMsg.style.opacity = "0%"; }, 500)
-            }
-        });
-
-        function drawConfetti() {
-            if (party) {
-                //create confetti effect using party.js
-                party.confetti(party.Rect.fromScreen(), {
-                        count: 300 * (window.innerWidth / 1980),
-                        countVariation: 0.5,
-                        angleSpan: 0,
-                        yVelocity: -100,
-                        yVelocityVariation: 2,
-                        rotationVelocityLimit: 6,
-                        scaleVariation: 0.8
-                    }
-                );
-                //resets dvdLogo position so you can't spam it
-                bx = canvas.width / 2;
-                by = canvas.height/ 2;
-            } else {
-                setTimeout(drawConfetti, 50)
-            }
-        }
-
-        //ensures the new dvd logo color is different then the current one
-        function changeImg() {
-            let returnSrc = arrImages[(Math.floor(Math.random() * 4 + 1))];
-            if(returnSrc !== img.src){
-                return returnSrc;
-            } else {
-                changeImg();
-            }
-        }
-
-        let xBounds = false;
-        let yBounds = false;
-
-        //responsible for: redrawing canvas per frame, ball movement, dvd logo color change, making the ball bounce off walls, and checking for corner hits
-        function update() {
-            if(img.width > canvas.width / 3 || img.height > canvas.height / 3){
-                gameMsg.innerHTML = "Your game area is too small, pausing game."
-                gameMsg.style.display = "block";
-                gameMsg.style.opacity = "100%";
-                setTimeout(function(){ gameMsg.style.opacity = "0%"; }, 5000);
-                return;
-            }
-            //move the ball
-            bx += xv;
-            by += yv;
-
-            //bounce the ball off each wall
-            if (bx - bsWidth / 2 < 0 && xv < 0){
-                yBounds === true && drawConfetti();
-                xBounds = true;
-                setTimeout(function(){ xBounds = false; }, 50)
-                xv = -xv;
-                img.src = changeImg();
-            }
-            //checking if ball position is more than the width of the canvas and if velocity is more than 0
-            if (bx + bsWidth / 2 > canvas.width && xv > 0){
-                yBounds === true && drawConfetti();
-                xBounds = true;
-                setTimeout(function(){ xBounds = false; }, 50)
-                xv = -xv;
-                img.src = changeImg();
-            }
-            if (by - bsHeight / 2 < 0 && yv < 0){
-                xBounds === true && drawConfetti();
-                yBounds = true;
-                setTimeout(function(){ yBounds = false; }, 50)
-                yv = -yv;
-                img.src = changeImg();
-            }
-            if (by + bsHeight / 2 > canvas.height && yv > 0){
-                xBounds === true && drawConfetti();
-                yBounds = true;
-                setTimeout(function(){ yBounds = false; }, 50)
-                yv = -yv;
-                img.src = changeImg();
-            }
-
-            //draw background and dvd logo
-            context.fillStyle = "black";
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(img, bx - bsWidth / 2, by - bsHeight / 2);
-        }
-
-        //Calls the update function every 1/30th of a second
-        setInterval(update, 1000 / FPS);
-
-        var md = new MobileDetect(window.navigator.userAgent);
-        if(md.mobileGrade() === 'A'){
-            document.body.innerHTML = md.mobile();
-        }
-    </script>
     <h1>Your browser is out of date.</h1>
     <p><a href="https://browser-update.org/update-browser.html?1">Update</a> your browser to view this site.</p>
 </canvas>
 <script>
     function resize() {
-        let canvas = document.getElementById('gameCanvas');canvas.width = document.body.clientWidth; canvas.height = document.body.clientHeight;
+        let canvas = document.getElementById('gameCanvas');
+        canvas.width = document.body.clientWidth;
+        canvas.height = document.body.clientHeight;
     }
+
     window.addEventListener('resize', resize);
     resize();
 </script>
+<script src="app.js"></script>
+<script src="opad.js"></script>
 </body>
 </html>
