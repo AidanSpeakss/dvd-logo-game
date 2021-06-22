@@ -126,14 +126,18 @@ window.onload = () => {
 
     //responsible for: redrawing canvas per frame, ball movement, dvd logo color change, making the ball bounce off walls, and checking for corner hits
     function update() {
-        if ((img.width > canvas.width / 3 || img.height > canvas.height / 3) && !md.mobile()) {
-            gameMsg.innerHTML = "Your game area is too small, pausing game."
-            gameMsg.style.display = "block";
-            gameMsg.style.opacity = "100%";
-            setTimeout(function () {
-                gameMsg.style.opacity = "0%";
-            }, 5000);
-            return;
+        if (img.width > canvas.width / 3 || img.height > canvas.height / 3) {
+            if(!md.mobile()){
+                gameMsg.innerHTML = "Your game area is too small, pausing game."
+                gameMsg.style.display = "block";
+                gameMsg.style.opacity = "100%";
+                setTimeout(function () {
+                    gameMsg.style.opacity = "0%";
+                }, 5000);
+                return;
+            } else {
+                //add mobile cheat detection here
+            }
         }
         //move the ball
         bx += xv;
