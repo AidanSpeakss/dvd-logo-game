@@ -370,6 +370,9 @@
             }
             window.addEventListener('resize', function(){
                 browserResize = true;
+                document.querySelector("#start").style.display = "none";
+                document.querySelector("#level").style.display = "none";
+                document.querySelector("#score").style.display = "none";
             })
             //Calls the update function every 1/30th of a second
             window.requestAnimationFrame(update);
