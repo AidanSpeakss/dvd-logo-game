@@ -2,7 +2,7 @@
 A game based on the DVD Screensaver meme! Take control of the logo and try to make it hit the corner in as little moves as possible!
 
 ## How to Play   
-Use your arrows keys or WASD keys to move the DVD logo into a corner. You will need precision and good timing to do it in as few moves as possible. Each time the logo hits a corner you advance a level. The more levels you complete the fast the logo moves, and the more difficult it becomes to control. What will your highscore be?
+Use your arrows keys or WASD keys to move the DVD logo into a corner. You will need precision and good timing to do it in as few moves as possible. Each time the logo hits a corner you advance a level. The more levels you complete the faster the logo moves, and the more difficult it becomes to control. What will your highscore be?
 
 ## In-Development Additions  
 - Add a per level challenge, either time based or move based, or maybe even obstacles.
