@@ -1,9 +1,5 @@
 # Play Here: https://aidanspeakss.github.io/dvd-logo-game/
 
-
-## A New Interest
-At a McNair Scholars conference I showed some friends this game and they got hooked instantly, after walking up to strangers and watching them get hooked to this game, I realized the opportunity it now offers. This game is simplistic yet addicting like Flappy Bird, with the right launch and the right marketing I think it can do well. I will be keeping this public source version of the game available, but every update from now on will be closed source and tested locally. I will periodatically release updates to the game on this Github. Wish me luck!
-
 # DVD Logo Mini-Game
 A game based on the DVD Screensaver meme! Take control of the logo and try to make it hit the corner in as little moves as possible!
 
