@@ -27,6 +27,8 @@ I think obstacles would be a great addition, but their position per level should
 
 
 # Changelog  
+## V2.10.0 - Latest release
+- Added tutorial
 
 ## V2.9.1 - Latest Release
 - Small bugfix
