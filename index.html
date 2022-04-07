@@ -31,6 +31,23 @@
 <p id="gameMsg"></p>
 <p id="score">Total Moves: <i></i></p>
 <p id="level">Level: <i></i></p>
+<p id="howToButton" onclick="document.querySelector('#howTo').style.opacity = '100%'; document.querySelector('#howTo').style.zIndex = '99999'; document.querySelector('#howToButton').style.opacity = '0'">Tutorial</p>
+
+<span id="howTo">
+    <p id="closeButton" onclick="document.querySelector('#howTo').style.opacity = '0'; document.querySelector('#howTo').style.zIndex = '0'; document.querySelector('#howToButton').style.opacity = '100%'">X</p>
+    <h1 style="margin-top: auto;">How To Play?</h1>
+    <img width="200px" src="keys.png">
+    <p style="margin-bottom: auto;">
+        Use your arrows keys or WASD keys to move the DVD logo into a corner.
+        You can make one move every second, so choose your move wisely.
+        You will need precision and good timing to do it in as few moves as possible.
+
+        Each time the logo hits a corner you advance a level. The more levels you complete the faster the logo moves,
+        and the harder it becomes to control, but the easier it becomes to score. What will your highscore be?
+
+        Fun challenge: Can you hit level 10 in under 100 moves?
+    </p>
+</span>
 <button id="start">Start Game</button>
 <div id="overlay" class="blur">
 <canvas id="gameCanvas">

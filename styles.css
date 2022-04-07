@@ -33,6 +33,61 @@ canvas {
     height: 100%;
     display: block;
 }
+#howTo {
+    transition: opacity 0.5s;
+    opacity: 100%;
+    padding: 7px;
+    border-radius: 10px;
+    background-color: #3b3b3b;
+    text-align: center;
+    margin: auto;
+    z-index: 99999999;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    color: white;
+    width: 80%;
+    height: 80%;
+    white-space: break-spaces;
+    flex-direction: column;
+    overflow: hidden;
+    position: absolute;
+    top: 10%;
+}
+#howToButton {
+    transition: opacity 0.5s;
+    opacity: 0;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #3b3b3b85;
+    text-align: center;
+    margin: auto;
+    z-index: 99999999;
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+    color: white;
+    position: absolute;
+    bottom: 50%;
+    right: 10px;
+    white-space: break-spaces;
+    flex-direction: column;
+    overflow: hidden;
+    cursor: pointer;
+}
+#closeButton {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: white;
+    color: #3b3b3b;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+    position: relative;
+    margin-left: auto;
+    margin-top: 0;
+}
 #gameMsg {
     top: 10px;
     transition: opacity 2s;
@@ -81,6 +136,7 @@ canvas {
     overflow: hidden;
 }
 #start {
+    cursor: pointer;
     border: none;
     font-size: 5vw;
     z-index: 5;

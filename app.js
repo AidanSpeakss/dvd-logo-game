@@ -134,7 +134,7 @@ function drawConfetti() {
                     scaleVariation: 0.8
                 }
             );
-            gameMsg.innerHTML = "Congrats! The more levels you complete the faster the ball moves."
+            gameMsg.innerHTML = "Congrats! The more levels you complete the faster the logo moves."
             gameMsg.style.display = "block";
             gameMsg.style.opacity = "100%";
             setTimeout(function () {
